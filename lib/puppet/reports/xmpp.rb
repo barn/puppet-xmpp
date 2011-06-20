@@ -23,14 +23,16 @@ Puppet::Reports.register_report(:xmpp) do
 
   def process
     if self.status == 'failed'
-      Puppet.debug "Sending status for #{self.host} to XMMP user #{XMPP_TARGET}"
       jid = JID::new(XMPP_JID)
       cl = Client::new(jid)
       cl.connect
       cl.auth(XMPP_PASSWORD)
       body = "Puppet run for #{self.host} #{self.status} at #{Time.now.asctime}"
-      m = Message::new(XMPP_TARGET, body).set_type(:normal).set_id('1').set_subject("Puppet run failed!")
-      cl.send m
+      XMPP_TARGET.split(',').each do |target| 
+        Puppet.debug "Sending status for #{self.host} to XMMP user #{target}"
+        m = Message::new(target, body).set_type(:normal).set_id('1').set_subject("Puppet run failed!")
+        cl.send m
+      end
     end
   end
 end
