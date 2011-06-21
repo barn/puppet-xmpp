@@ -23,7 +23,7 @@ Installation & Usage
 2.  Install puppet-xmpp as a module in your Puppet master's module
     path.
 
-3.  Update the `xmpp_jid`, `xmpp_passowrd`, and `xmpp_target` variables in `xmpp.yaml` 
+3.  Update the `xmpp_jid`, `xmpp_password`, and `xmpp_target` variables in `xmpp.yaml` 
     and copy the file to `/etc/puppet`. An example file is included.
 
 4.  Enable pluginsync and reports on your master and clients in `puppet.conf`
